@@ -1,4 +1,3 @@
-// thread example
 #include <iostream>       // std::cout
 #include <thread>         // std::thread
 #include <mutex>
@@ -34,6 +33,7 @@ public:
       std::cout << ".";
       _cv.wait(lck);    
     }
+    // by now _val is odd
   }
 
   void waitTillEven()
@@ -44,12 +44,13 @@ public:
       std::cout << ",";
       _cv.wait(lck);    
     }
+    // by now _val is even
   }
 
 private:
   int _val;
   std::mutex _m;
-  std::condition_variable _cv; // wait on this till change
+  std::condition_variable _cv; // wait on this till _val change
 };
 
 VarWithGuard x(0);
