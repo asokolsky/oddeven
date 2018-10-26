@@ -65,9 +65,9 @@ void oddThreadProc(int iMaxCount)
   for(;;)
   {
     x.waitTillOdd();
+    std::cout << "1";
     if(x.get() >= iMaxCount)
       break;
-    std::cout << "1";
     if(x.inc() >= iMaxCount)
       break;
   }
@@ -83,9 +83,9 @@ void evenThreadProc(int iMaxCount)
   for(;;)
   {
     x.waitTillEven();
+    std::cout << "0";    
     if(x.get() >= iMaxCount)
       break;
-    std::cout << "0";    
     if(x.inc() >= iMaxCount)
       break;
   }
