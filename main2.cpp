@@ -59,7 +59,7 @@ int main()
 {
   const int iMaxCount = 100;
   std::thread odd(
-    []() {
+    [=]() {
       for(;;)
       {
         x.waitTillOdd();
@@ -72,7 +72,7 @@ int main()
     });
 
   std::thread even(
-    []() {
+    [=]() {
       for(;;)
       {
         x.waitTillEven();

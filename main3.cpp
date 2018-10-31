@@ -49,7 +49,7 @@ VarWithGuard x(0);
 int main() 
 {
   const int iMaxCount = 100;
-  std::thread odd([]() {
+  std::thread odd([=]() {
     for(;;) {
       x.waitTill([](int v) { return (v%2) !=0; }); // isOdd
       std::cout << "1";
@@ -59,7 +59,7 @@ int main()
         break;
     }});
 
-  std::thread even([]() {
+  std::thread even([=]() {
     for(;;) {
       x.waitTill([](int v) { return (v%2) ==0; }); // isEven
       std::cout << "0";    
