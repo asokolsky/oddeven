@@ -1,6 +1,26 @@
 {
     "configurations": [
         {
+            "name": "Linux",
+            "includePath": [
+                "/usr/include",
+                "/usr/include/c++/7",
+                "/usr/local/include",
+                "${workspaceRoot}"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include",
+                    "/usr/local/include",
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        },
+        {
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}",
