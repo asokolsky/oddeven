@@ -5,7 +5,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/${fileBasename}.exe",
+            "program": "${workspaceRoot}/out/${fileBasenameNoExtension}.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -24,7 +24,7 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "attach",
-            "program": "${workspaceRoot}/${fileBasename}.exe",
+            "program": "${workspaceRoot}/out/${fileBasenameNoExtension}.out",
             "processId": "${command:pickProcess}",
             "MIMode": "gdb",
             "setupCommands": [

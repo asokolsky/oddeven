@@ -13,7 +13,7 @@
                 "-std=c++11",
                 "${file}",
                 "-o",
-                "${workspaceRoot}/${fileBasenameNoExtension}.out",
+                "${workspaceRoot}/out/${fileBasenameNoExtension}.out",
                 "-lpthread"
             ],
             "problemMatcher": [
@@ -29,7 +29,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-        }
+        },
         {
             "label": "MSVC build",
             "command": "cmd",
