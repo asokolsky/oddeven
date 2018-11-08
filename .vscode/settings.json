@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "mutex": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "queue": "cpp",
+        "vector": "cpp"
     }
 }

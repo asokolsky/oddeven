@@ -3,8 +3,9 @@
  * access is defined as a call to either put or get
  * when item is put, if the chache is full, the LRU element is popped out.
  */
-class LruCache<K, V> {
-  shared_ptr<V> put(shared_ptr<K> key shared_ptr<V> value);
+class LruCache<K, V> 
+{
+  shared_ptr<V> put(shared_ptr<K> key, shared_ptr<V> value);
   
   shared_ptr<V> get(shared_ptr<K> key);
   

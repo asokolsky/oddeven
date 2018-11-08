@@ -45,7 +45,7 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
-            "preLaunchTask": "compile"
+            "preLaunchTask": "MSVC build"
         }
     ]
 }
