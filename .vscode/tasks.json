@@ -37,6 +37,9 @@
             "args": [
                 "/C %vcvarsall% && cl /Od /Zi /EHsc /Fd:%outpath%/${fileBasenameNoExtension}.pdb /Fo:%outpath%/%TargetName%.obj ${fileBasename} /link /OUT:%outpath%/%TargetName%.%TargetExt% /PDB:%outpath%/%TargetName%.pdb",
             ],
+            "problemMatcher": [
+                "$gcc"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
