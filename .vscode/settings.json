@@ -3,6 +3,10 @@
         "mutex": "cpp",
         "xstring": "cpp",
         "queue": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "map": "cpp",
+        "ostream": "cpp",
+        "xtree": "cpp",
+        "set": "cpp"
     }
 }
