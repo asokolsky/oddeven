@@ -6,15 +6,17 @@
 #include <map>
 #include "responses.h"
 
+using namespace std;
+
 class BusManager {
 private:
-    map<string, vector<string>> buses_to_stops;
-    map<string, vector<string>> stops_to_buses;  
+    std::map<string, std::vector<std::string>> buses_to_stops;
+    std::map<string, std::vector<std::string>> stops_to_buses;  
 public:
     BusManager () {}
 
-    void AddBus(const string& bus, const vector<string>& stops);
-    BusesForStopResponse GetBusesForStop(const string& stop) const;
-    StopsForBusResponse GetStopsForBus(const string& bus) const;
+    void AddBus(const std::string& bus, const std::vector<std::string>& stops);
+    BusesForStopResponse GetBusesForStop(const std::string& stop) const;
+    StopsForBusResponse GetStopsForBus(const std::string& bus) const;
     AllBusesResponse GetAllBuses() const;
 };
