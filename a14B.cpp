@@ -122,7 +122,7 @@ std::istream& operator>>(std::istream& is, Rational &obj)
   return is;
 }
 
-int main() 
+/*int main() 
 {
   while(cin)
   {
@@ -160,7 +160,7 @@ int main()
     cout << res << endl;
   }
   return 0;
-}
+}*/
 
 /*
 
