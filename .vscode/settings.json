@@ -11,6 +11,7 @@
         "algorithm": "cpp",
         "iostream": "cpp",
         "iosfwd": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "numeric": "cpp"
     }
 }
