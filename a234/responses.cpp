@@ -11,7 +11,7 @@ ostream& operator << (ostream& os, const BusesForStopResponse& r) {
 ostream& operator << (ostream& os, const StopsForBusResponse& r) {
     if(r.stops.size() == 0)
         return os << "No bus";
-    for (int i = 0; i < r.stops.size(); i++) {
+    for (size_t i = 0; i < r.stops.size(); i++) {
         const string& stop = r.stops[i];
         cout << "Stop " << stop << ": ";
         if (r.interchanges.count(stop) == 0) {
@@ -30,7 +30,7 @@ ostream& operator << (ostream& os, const StopsForBusResponse& r) {
 ostream& operator << (ostream& os, const AllBusesResponse &r) {
     if (r.buses_to_stops.empty())
         return cout << "No buses";
-    auto iLine = 0;
+    size_t iLine = 0;
     for(const auto& bus_item : r.buses_to_stops) {        
         cout << "Bus " << bus_item.first << ": ";
         for (const string& stop : bus_item.second) {

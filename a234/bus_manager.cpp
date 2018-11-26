@@ -1,3 +1,4 @@
+#include "responses.h"
 #include "bus_manager.h"
 
 void BusManager::AddBus(const string& bus, const vector<string>& stops) {

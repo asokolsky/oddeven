@@ -3,7 +3,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
+using namespace std;
 
 struct BusesForStopResponse {
   vector <string> buses;
