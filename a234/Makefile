@@ -24,7 +24,7 @@ query.o: query.cpp query.h
 responses.o: responses.cpp responses.h
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) main
 
 distclean: clean
 	$(RM) tool
