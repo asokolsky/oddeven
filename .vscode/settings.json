@@ -12,6 +12,7 @@
         "iostream": "cpp",
         "iosfwd": "cpp",
         "stdexcept": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "memory": "cpp"
     }
 }

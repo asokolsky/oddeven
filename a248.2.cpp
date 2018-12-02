@@ -4,6 +4,8 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <signal.h>
+//#include <execinfo.h>
 
 using namespace std;
 
@@ -33,10 +35,9 @@ struct Expression
   };
   Expression *right;
 
-  //Expression() : op(0), left(0), right(0) {}
   Expression(int val) : op(0), value(val), right(0) {}
   Expression(char o, Expression *l, Expression *r) : op(o), left(l), right(r) {}
-  ~Expression()
+  /*~Expression()
   {
     if(op != 0)
     {
@@ -45,7 +46,7 @@ struct Expression
       delete right;
       right = 0;
     }
-  }
+  }*/
 
   int priority()
   {
@@ -58,7 +59,7 @@ struct Expression
 
   void print(int iContextPriority = 0)
   {
-    if(op == '0')
+    if(op == '\0')
     {
       // we are just an integer
       cout << to_string(value);
@@ -75,8 +76,19 @@ struct Expression
   }
 };
 
+/*void segFaultHandler(int sig)
+{
+  void *array[10];
+  size_t size = backtrace(array, 10);
+  fprintf(stderr, "Error: signal %d:\n", sig);
+  backtrace_symbols_fd(array, size, STDERR_FILENO);
+  exit(1);
+}*/
+
 int main() 
 {
+ // signal(SIGSEGV, segFaultHandler);
+
   int val;
   cin >> val;
   Expression *pRoot = new Expression(val);
@@ -99,9 +111,9 @@ int main()
     }
   }
   pRoot->print();
-  delete pRoot;
-  pRoot = 0;
   cout << endl;
+  //delete pRoot;
+  //pRoot = 0;
   return 0;
 }
 
