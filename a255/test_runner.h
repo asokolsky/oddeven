@@ -1,12 +1,27 @@
+#pragma once
 #include <sstream>
 #include <exception>
 #include <iostream>
 #include <string>
 #include <map>
 #include <set>
+#include <vector>
 
 using namespace std;
 
+template <class T>
+ostream& operator << (ostream& os, const vector<T>& s) {
+  os << "{";
+  bool first = true;
+  for (const auto& x : s) {
+    if (!first) {
+      os << ", ";
+    }
+    first = false;
+    os << x;
+  }
+  return os << "}";
+}
 template <class T>
 ostream& operator << (ostream& os, const set<T>& s) {
   os << "{";
@@ -36,8 +51,7 @@ ostream& operator << (ostream& os, const map<K, V>& m) {
 }
 
 template<class T, class U>
-void AssertEqual(const T& t, const U& u,
-    const string& hint)
+void AssertEqual(const T& t, const U& u, const string& hint)
 {
   if (t != u) {
     ostringstream os;

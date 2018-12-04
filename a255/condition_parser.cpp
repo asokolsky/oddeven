@@ -1,4 +1,6 @@
 #include <map>
+#include <memory>
+#include <vector>
 #include "condition_parser.h"
 #include "token.h"
 

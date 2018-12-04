@@ -1,12 +1,11 @@
-#include <set>
 #include "database.h"
 
-void Database::AddEvent(const Date& date, const string& event)
+void Database::Add(const Date& date, const string& event)
 {
     if(!event.empty())
         _m[date].insert(event);
 }
-bool Database::DeleteEvent(const Date& date, const string& event)
+/*bool Database::DeleteEvent(const Date& date, const string& event)
 {
     if(_m.count(date) == 0)
         return false;
@@ -16,28 +15,27 @@ bool Database::DeleteEvent(const Date& date, const string& event)
         return false;
     strs.erase(it);
     return true;
-}
-int Database::DeleteDate(const Date& date)
+}*/
+/*int Database::DeleteDate(const Date& date)
 {
     if(_m.count(date) == 0)
         return 0;
     int iRes = _m.at(date).size();
     _m.erase(date);
     return iRes;
-}
-
-void Database::Find(const Date& date) const
+}*/
+/*void Database::Find(const Date& date) const
 {
     auto it = _m.find(date);
     if(it != _m.end())
     {
         for(auto evt: it->second)
-            cout /*<< date << " "*/ << evt << endl;
+            cout << date << " " << evt << endl;
     }
-}
-void Database::Print() const
+}*/
+void Database::Print(std::ostream& os) const
 {
   for(auto &elt: _m)
     for(auto evt: elt.second)
-        cout << elt.first << " " << evt << endl;
+        os << elt.first << " " << evt << endl;
 }
