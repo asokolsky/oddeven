@@ -12,8 +12,8 @@ OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: main
 
-main: main.o $(OBJS)
-	$(CXX) $(LDFLAGS) -o main main.o $(OBJS) $(LDLIBS)
+main: $(OBJS)
+	$(CXX) $(LDFLAGS) -o main $(OBJS) $(LDLIBS)
 
 depend: .depend
 

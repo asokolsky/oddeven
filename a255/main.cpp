@@ -5,10 +5,10 @@
 #include "condition_parser.h"
 #include "test_runner.h"
 
-
 using namespace std;
 
-string trimLeading(const string& str) {
+string trimLeading(const string& str) 
+{
   const std::string whitespace = " \t";
   const auto strBegin = str.find_first_not_of(whitespace);
   if (strBegin == std::string::npos)
@@ -32,9 +32,33 @@ string ParseEvent(istream& is) {
   return trimLeading(str);
 }
 
-void TestAll();
+void TestParseEvent() {
+  {
+    istringstream is("event");
+    AssertEqual(ParseEvent(is), "event", "Parse event without leading spaces");
+  }
+  {
+    istringstream is("   sport event ");
+    AssertEqual(ParseEvent(is), "sport event ", "Parse event with leading spaces");
+  }
+  {
+    istringstream is("  first event  \n  second event");
+    vector<string> events;
+    events.push_back(ParseEvent(is));
+    events.push_back(ParseEvent(is));
+    AssertEqual(events, vector<string>{"first event  ", "second event"}, "Parse multiple events");
+  }
+}
 
-int main() {
+void TestAll() 
+{
+  TestRunner tr;
+  tr.RunTest(TestParseEvent, "TestParseEvent");
+  tr.RunTest(TestParseCondition, "TestParseCondition");
+}
+
+int main() 
+{
   TestAll();
 
   Database db;
@@ -80,30 +104,6 @@ int main() {
       throw logic_error("Unknown command: " + command);
     }
   }
-
   return 0;
 }
 
-void TestParseEvent() {
-  {
-    istringstream is("event");
-    AssertEqual(ParseEvent(is), "event", "Parse event without leading spaces");
-  }
-  {
-    istringstream is("   sport event ");
-    AssertEqual(ParseEvent(is), "sport event ", "Parse event with leading spaces");
-  }
-  {
-    istringstream is("  first event  \n  second event");
-    vector<string> events;
-    events.push_back(ParseEvent(is));
-    events.push_back(ParseEvent(is));
-    AssertEqual(events, vector<string>{"first event  ", "second event"}, "Parse multiple events");
-  }
-}
-
-void TestAll() {
-  TestRunner tr;
-  tr.RunTest(TestParseEvent, "TestParseEvent");
-  tr.RunTest(TestParseCondition, "TestParseCondition");
-}
