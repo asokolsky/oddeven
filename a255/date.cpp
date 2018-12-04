@@ -3,10 +3,10 @@
 
 Date::Date(int y, int m, int d) : _y(y), _m(m), _d(d) 
 {
-if(_m <= 0 || _m > 12)
-    throw(invalid_argument("Month value is invalid: " + to_string(_m)));
-if(_d <= 0 || _d > 31)
-    throw(invalid_argument("Day value is invalid: " + to_string(_d)));
+  if(_m <= 0 || _m > 12)
+      throw(invalid_argument("Month value is invalid: " + to_string(_m)));
+  if(_d <= 0 || _d > 31)
+      throw(invalid_argument("Day value is invalid: " + to_string(_d)));
 }
 
 bool operator<(const Date& lhs, const Date& rhs)
@@ -20,6 +20,18 @@ bool operator<(const Date& lhs, const Date& rhs)
   if(lm != rm)
     return lm < rm;
   return lhs.GetDay() < rhs.GetDay();
+}
+bool operator>(const Date& lhs, const Date& rhs)
+{
+  int ly = lhs.GetYear();
+  int ry = rhs.GetYear();
+  if(ly != ry)
+    return ly > ry;
+  int lm = lhs.GetMonth();
+  int rm = rhs.GetMonth();
+  if(lm != rm)
+    return lm > rm;
+  return lhs.GetDay() > rhs.GetDay();
 }
 
 std::ostream& operator<<(std::ostream& os, const Date &obj)

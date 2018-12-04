@@ -21,5 +21,20 @@ private:
 };
 
 bool operator<(const Date& lhs, const Date& rhs);
+inline bool operator>=(const Date& lhs, const Date& rhs) {
+  return !(lhs < rhs);
+}
+bool operator>(const Date& lhs, const Date& rhs);
+inline bool operator<=(const Date& lhs, const Date& rhs) {
+  return !(lhs > rhs);
+}
+inline bool operator==(const Date& lhs, const Date& rhs) {
+  return (lhs.GetYear() == rhs.GetYear())
+    && (lhs.GetMonth() == rhs.GetYear())
+    && (lhs.GetDay() == rhs.GetDay());
+}
+inline bool operator!=(const Date& lhs, const Date& rhs) {
+  return !(lhs == rhs);
+}
 std::ostream& operator<<(std::ostream& os, const Date &obj);
 std::istream& operator>>(std::istream& is, Date &obj);
