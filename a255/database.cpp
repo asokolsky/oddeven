@@ -5,6 +5,23 @@ void Database::Add(const Date& date, const string& event)
     if(!event.empty())
         _m[date].insert(event);
 }
+/** returns the # of entries removed */
+int Database::RemoveIf(std::function <bool(const Date& date, const string& event)> const &predicate)
+{
+    return 0;
+}
+/** returns entries */
+vector<string> Database::FindIf(std::function <bool (const Date& date, const string& event)> const &predicate) const
+{
+    vector<string>res;
+    return res; 
+}
+/** throws exception */
+string Database::Last(const Date& date) const
+{
+    string res;
+    return res;
+}
 /*bool Database::DeleteEvent(const Date& date, const string& event)
 {
     if(_m.count(date) == 0)

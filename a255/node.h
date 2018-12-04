@@ -13,14 +13,15 @@ enum LogicalOperation {
 
 class Node {
 public:
-    Node() {}
+    Node();
+    virtual ~Node();
     virtual bool Evaluate(const Date& date, const string& event) const;
 };
 
 class EmptyNode : public Node {
 public:
-    EmptyNode() {}
-
+    EmptyNode();
+    ~EmptyNode();
 };
 
 class DateComparisonNode : public Node {
@@ -29,6 +30,7 @@ class DateComparisonNode : public Node {
 public:
     DateComparisonNode(const Comparison cmp, const Date& date) : 
         _cmp(cmp), _date(date) {}
+    ~DateComparisonNode();
     bool Evaluate(const Date& date, const string& event) const;
 }; 
 class EventComparisonNode : public Node {
@@ -37,6 +39,7 @@ class EventComparisonNode : public Node {
 public:
     EventComparisonNode(const Comparison cmp, const string& event) : 
       _cmp(cmp), _event(event) {}
+    ~EventComparisonNode();
     bool Evaluate(const Date& date, const string& event) const;
 };
 
@@ -49,6 +52,7 @@ public:
       _op(op), _lhs(lhs), _rhs(rhs)
     {
     }
+    ~LogicalOperationNode();
     bool Evaluate(const Date& date, const string& event) const;
 }; 
 
