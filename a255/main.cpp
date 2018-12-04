@@ -1,16 +1,22 @@
+#include <iostream>
+#include <stdexcept>
 #include "database.h"
 #include "date.h"
 #include "condition_parser.h"
 #include "node.h"
 #include "test_runner.h"
 
-#include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
+string trimLeading(const string& str) {
+  string res;
+  return res;
+}
 string ParseEvent(istream& is) {
-  // Реализуйте эту функцию
+  string str;
+  getline(is, str);
+  return trimLeading(str);
 }
 
 void TestAll();

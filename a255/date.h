@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -38,3 +39,9 @@ inline bool operator!=(const Date& lhs, const Date& rhs) {
 }
 std::ostream& operator<<(std::ostream& os, const Date &obj);
 std::istream& operator>>(std::istream& is, Date &obj);
+
+inline Date ParseDate(std::istream& is) {
+  Date res;
+  is >> res;
+  return res;
+}
