@@ -8,12 +8,38 @@ void Database::Add(const Date& date, const string& event)
 /** returns the # of entries removed */
 int Database::RemoveIf(std::function <bool(const Date& date, const string& event)> const &predicate)
 {
-    return 0;
+    int iRemoved = 0;
+    for(auto mit = _m.begin(); mit != _m.end(); ++mit)
+    {
+        for(auto sit = mit->second.begin(); sit != mit->second.end(); ++sit)
+        {
+            if(predicate(mit->first, *sit)) 
+            {
+                mit->second.erase(sit);
+                iRemoved++;
+            }
+        }
+        if(mit->second.empty())
+            _m.erase(mit);
+    }
+    return iRemoved; 
 }
 /** returns entries */
 vector<string> Database::FindIf(std::function <bool (const Date& date, const string& event)> const &predicate) const
 {
     vector<string>res;
+    for(auto mit = _m.begin(); mit != _m.end(); ++mit)
+    {
+        for(auto sit = mit->second.begin(); sit != mit->second.end(); ++sit)
+        {
+            if(predicate(mit->first, *sit)) 
+            {
+                stringstream os;
+                os << mit->first << " " << *sit;
+                res.push_back(os.str());
+            }
+        }
+    }
     return res; 
 }
 /** throws exception */

@@ -29,11 +29,7 @@ bool operator>(const Date& lhs, const Date& rhs);
 inline bool operator<=(const Date& lhs, const Date& rhs) {
   return !(lhs > rhs);
 }
-inline bool operator==(const Date& lhs, const Date& rhs) {
-  return (lhs.GetYear() == rhs.GetYear())
-    && (lhs.GetMonth() == rhs.GetYear())
-    && (lhs.GetDay() == rhs.GetDay());
-}
+bool operator==(const Date& lhs, const Date& rhs);
 inline bool operator!=(const Date& lhs, const Date& rhs) {
   return !(lhs == rhs);
 }

@@ -33,6 +33,11 @@ bool operator>(const Date& lhs, const Date& rhs)
     return lm > rm;
   return lhs.GetDay() > rhs.GetDay();
 }
+bool operator==(const Date& lhs, const Date& rhs) {
+  return (lhs.GetYear() == rhs.GetYear())
+    && (lhs.GetMonth() == rhs.GetMonth())
+    && (lhs.GetDay() == rhs.GetDay());
+}
 
 std::ostream& operator<<(std::ostream& os, const Date &obj)
 {

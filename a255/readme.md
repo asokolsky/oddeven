@@ -169,6 +169,13 @@ Add 2017-05-09 Holiday
 2017-03-08 Holiday
 Found 3 entries
 
+Ввод
+Find date == 2017-01-01
+Вывод
+2017-01-01 Holiday
+2017-01-01 New Year
+Found 2 entries
+
 Команда Last
 
 По команде Last date нужно вывести последнее из событий, случившихся к дате date. Более формально:
