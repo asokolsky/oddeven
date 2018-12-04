@@ -1,5 +1,7 @@
 # output folder
 out
+# re-buildable dependencies
+.depend
 # Visual Studio
 .vs
 
