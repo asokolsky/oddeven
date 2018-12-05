@@ -47,7 +47,7 @@ vector<string> Database::FindIf(std::function <bool (const Date& date, const str
     return res; 
 }
 
-static string getLastEvent(const set<pair<string,unsigned long>> &setOfPairs)
+static string getLastEvent(const set<pair<string,unsigned long>, classcomp> &setOfPairs)
 {
     pair<string,unsigned long>res;
     res.second = 0;

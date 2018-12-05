@@ -62,3 +62,10 @@ std::istream& operator>>(std::istream& is, Date &obj)
     obj = res;
   return is;
 }
+
+Date ParseDate(std::istream& is)
+{
+  Date res;
+  is >> res;
+  return res;
+}

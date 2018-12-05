@@ -6,6 +6,14 @@
 #include <functional>
 #include "date.h"
 
+struct classcomp {
+    /** compare event name, ignore its timestamp */
+    bool operator() (const pair<string,unsigned long>& lhs, const pair<string,unsigned long>& rhs) const
+    {
+        return lhs.first < rhs.first;
+    }
+};
+
 
 class Database {
 public:
@@ -20,6 +28,5 @@ public:
     /** prints the entier content */
     void Print(std::ostream& os) const;
 private:
-
-    map<Date, set<pair<string,unsigned long>>> _m;
+    map<Date, set<pair<string,unsigned long>, classcomp>> _m;
 };
