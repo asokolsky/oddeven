@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "database.h"
 
 void Database::Add(const Date& date, const string& event)
@@ -42,10 +43,19 @@ vector<string> Database::FindIf(std::function <bool (const Date& date, const str
     }
     return res; 
 }
-/** throws exception */
+/** 
+ * throws invalid_argument exception if there is nothing before date 
+ */
 string Database::Last(const Date& date) const
 {
-    string res;
+    if(_m.empty())
+        throw invalid_argument("No events yet");
+    auto it = _m.lower_bound(date);
+    if(it == _m.end())
+        --it;
+    if(date < it->first)
+        throw invalid_argument("Nothing on or before that date");
+    string res("found it");
     return res;
 }
 /*bool Database::DeleteEvent(const Date& date, const string& event)

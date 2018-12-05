@@ -15,7 +15,7 @@ public:
     int RemoveIf(std::function <bool(const Date& date, const string& event)> const &predicate);
     /** returns entries */
     vector<string> FindIf(std::function <bool (const Date& date, const string& event)> const &predicate) const;
-    /** throws exception */
+    /** throws invalid_argument exception if there is nothing before date */
     string Last(const Date& date) const;
     /** prints the entier content */
     void Print(std::ostream& os) const;
