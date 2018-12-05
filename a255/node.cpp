@@ -1,25 +1,10 @@
 #include "node.h"
 
-Node::Node()
+bool EmptyNode::Evaluate(const Date& date, const string& event) const
 {
-}
-Node::~Node()
-{
-}
-bool Node::Evaluate(const Date& date, const string& event) const
-{
-    return false;
+    return true;
 }
 
-EmptyNode::EmptyNode()
-{
-}
-EmptyNode::~EmptyNode()
-{
-}
-DateComparisonNode::~DateComparisonNode()
-{
-}
 bool DateComparisonNode::Evaluate(const Date& date, const string& event) const
 {
     switch(_cmp)
@@ -40,9 +25,6 @@ bool DateComparisonNode::Evaluate(const Date& date, const string& event) const
     return false;
 }
 
-EventComparisonNode::~EventComparisonNode()
-{
-}
 bool EventComparisonNode::Evaluate(const Date& date, const string& event) const
 {
     switch(_cmp)
@@ -62,18 +44,16 @@ bool EventComparisonNode::Evaluate(const Date& date, const string& event) const
     }
     return false;
 }
-LogicalOperationNode::~LogicalOperationNode()
-{
-}
+
 bool LogicalOperationNode::Evaluate(const Date& date, const string& event) const
 {
-    bool bRes = _lhs->Evaluate(date, event);
+    bool bLHS = _lhs->Evaluate(date, event);
     switch(_op)
     {
         case Or:
-            return bRes || _rhs->Evaluate(date, event);
+            return (bLHS || _rhs->Evaluate(date, event));
         case And:
-            return bRes && _rhs->Evaluate(date, event);
+            return (bLHS && _rhs->Evaluate(date, event));
     }
     return false;
 }

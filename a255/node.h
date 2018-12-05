@@ -13,46 +13,41 @@ enum LogicalOperation {
 
 class Node {
 public:
-    Node();
-    virtual ~Node();
-    virtual bool Evaluate(const Date& date, const string& event) const;
+    Node() {}
+    virtual bool Evaluate(const Date& date, const string& event) const = 0;
 };
 
 class EmptyNode : public Node {
 public:
-    EmptyNode();
-    ~EmptyNode();
+    EmptyNode() {}
+    bool Evaluate(const Date& date, const string& event) const;
 };
 
 class DateComparisonNode : public Node {
-    Comparison _cmp;
-    Date _date;
+    const Comparison _cmp;
+    const Date _date;
 public:
     DateComparisonNode(const Comparison cmp, const Date& date) : 
         _cmp(cmp), _date(date) {}
-    ~DateComparisonNode();
     bool Evaluate(const Date& date, const string& event) const;
 }; 
 class EventComparisonNode : public Node {
-    Comparison _cmp;
-    string _event;
+    const Comparison _cmp;
+    const string _event;
 public:
     EventComparisonNode(const Comparison cmp, const string& event) : 
       _cmp(cmp), _event(event) {}
-    ~EventComparisonNode();
     bool Evaluate(const Date& date, const string& event) const;
 };
 
 class LogicalOperationNode : public Node {
-    LogicalOperation _op;
-    shared_ptr<Node> _lhs;
-    shared_ptr<Node> _rhs;
+    const LogicalOperation _op;
+    const shared_ptr<Node> _lhs;
+    const shared_ptr<Node> _rhs;
 public:
     LogicalOperationNode(const LogicalOperation op, shared_ptr<Node> lhs, shared_ptr<Node> rhs) :
       _op(op), _lhs(lhs), _rhs(rhs)
     {
     }
-    ~LogicalOperationNode();
     bool Evaluate(const Date& date, const string& event) const;
 }; 
-

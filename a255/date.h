@@ -36,3 +36,4 @@ std::ostream& operator<<(std::ostream& os, const Date &obj);
 std::istream& operator>>(std::istream& is, Date &obj);
 
 Date ParseDate(std::istream& is);
+void TestDate();

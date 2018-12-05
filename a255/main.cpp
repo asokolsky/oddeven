@@ -55,6 +55,11 @@ void TestAll()
   TestRunner tr;
   tr.RunTest(TestParseEvent, "TestParseEvent");
   tr.RunTest(TestParseCondition, "TestParseCondition");
+  tr.RunTest(TestDate, "TestDate");
+  tr.RunTest(TestDbAdd, "TestDbAdd");
+  tr.RunTest(TestDbFind, "TestDbFind");
+  tr.RunTest(TestDbLast, "TestDbLast");
+  tr.RunTest(TestDbRemoveIf, "TestDbRemoveIf");
 }
 
 int main() 

@@ -30,3 +30,8 @@ public:
 private:
     map<Date, set<pair<string,unsigned long>, classcomp>> _m;
 };
+
+void TestDbAdd();
+void TestDbFind();
+void TestDbLast();
+void TestDbRemoveIf();

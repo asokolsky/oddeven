@@ -1,5 +1,6 @@
 #include <iomanip>
 #include "date.h"
+#include "test_runner.h"
 
 Date::Date(int y, int m, int d) : _y(y), _m(m), _d(d) 
 {
@@ -69,3 +70,73 @@ Date ParseDate(std::istream& is)
   is >> res;
   return res;
 }
+
+void TestDate()
+{
+    {
+        istringstream is("2017-01-01");
+        Date date;
+        is >> date;
+        ostringstream os;
+        os << date;
+        AssertEqual("2017-01-01", os.str(), "serialiaze/desrialize date");
+    }
+    {
+        istringstream is("   2017-01-01");
+        Date date;
+        is >> date;
+        ostringstream os;
+        os << date;
+        AssertEqual("2017-01-01", os.str(), "serialiaze/desrialize date, with leading spaces");
+    }
+    {
+        Assert(  Date{2017, 1, 1} == Date{2017, 1, 1},  "==");
+        Assert(!(Date{2017, 1, 1} == Date{2017, 1, 2}), "!==");
+        Assert(!(Date{2017, 1, 1} == Date{2017, 2, 1}), "!==");
+        Assert(!(Date{2017, 1, 1} == Date{2018, 1, 1}), "!==");
+        Assert(!(Date{2017, 1, 2} == Date{2017, 1, 1}), "!==");
+        Assert(!(Date{2017, 2, 1} == Date{2017, 1, 1}), "!==");
+        Assert(!(Date{2018, 1, 1} == Date{2017, 1, 1}), "!==");
+
+        Assert(  Date{2017, 1, 1} != Date{2017, 1, 2},  "!=");
+        Assert(  Date{2017, 1, 1} != Date{2017, 2, 1},  "!=");
+        Assert(  Date{2017, 1, 1} != Date{2018, 1, 1},  "!=");
+        Assert(  Date{2017, 1, 2} != Date{2017, 1, 1},  "!=");
+        Assert(  Date{2017, 2, 1} != Date{2017, 1, 1},  "!=");
+        Assert(  Date{2018, 1, 1} != Date{2017, 1, 1},  "!=");
+        Assert(!(Date{2017, 1, 1} != Date{2017, 1, 1}), "!!=");
+
+        Assert(  Date{2017, 1, 1} <= Date{2017, 1, 1},  "<=");
+        Assert(  Date{2017, 1, 1} <= Date{2017, 1, 2},  "<=");
+        Assert(  Date{2017, 1, 1} <= Date{2017, 2, 1},  "<=");
+        Assert(  Date{2017, 1, 1} <= Date{2018, 1, 1},  "<=");
+        Assert(!(Date{2017, 1, 2} <= Date{2017, 1, 1}), "!<=");
+        Assert(!(Date{2017, 2, 1} <= Date{2017, 1, 1}), "!<=");
+        Assert(!(Date{2018, 1, 1} <= Date{2017, 1, 1}), "!<=");
+
+        Assert(  Date{2017, 1, 1} <  Date{2017, 1, 2},  "<");
+        Assert(  Date{2017, 1, 1} <  Date{2017, 2, 1},  "<");
+        Assert(  Date{2017, 1, 1} <  Date{2018, 1, 1},  "<");
+        Assert(!(Date{2017, 1, 1} <  Date{2017, 1, 1}), "!<");
+        Assert(!(Date{2017, 1, 2} <  Date{2017, 1, 1}), "!<");
+        Assert(!(Date{2017, 2, 1} <  Date{2017, 1, 1}), "!<");
+        Assert(!(Date{2018, 1, 1} <  Date{2017, 1, 1}), "!<");
+
+        Assert(  Date{2017, 1, 1} >= Date{2017, 1, 1} , ">=");
+        Assert(  Date{2017, 1, 2} >= Date{2017, 1, 1} , ">=");
+        Assert(  Date{2017, 2, 1} >= Date{2017, 1, 1} , ">=");
+        Assert(  Date{2018, 1, 1} >= Date{2017, 1, 1} , ">=");
+        Assert(!(Date{2017, 1, 1} >= Date{2017, 1, 2}), "!>=");
+        Assert(!(Date{2017, 1, 1} >= Date{2017, 2, 1}), "!>=");
+        Assert(!(Date{2017, 1, 1} >= Date{2018, 1, 1}), "!>=");
+
+        Assert(  Date{2017, 1, 2} >  Date{2017, 1, 1} , ">");
+        Assert(  Date{2017, 2, 1} >  Date{2017, 1, 1} , ">");
+        Assert(  Date{2018, 1, 1} >  Date{2017, 1, 1} , ">");
+        Assert(!(Date{2017, 1, 1} >  Date{2017, 1, 1}), "!>");
+        Assert(!(Date{2017, 1, 1} >  Date{2017, 1, 2}), "!>");
+        Assert(!(Date{2017, 1, 1} >  Date{2017, 2, 1}), "!>");
+        Assert(!(Date{2017, 1, 1} >  Date{2018, 1, 1}), "!>");
+    }
+}
+
