@@ -20,5 +20,6 @@ public:
     /** prints the entier content */
     void Print(std::ostream& os) const;
 private:
-    map<Date, set<string>> _m;
+
+    map<Date, set<pair<string,unsigned long>>> _m;
 };

@@ -3,8 +3,11 @@
 
 void Database::Add(const Date& date, const string& event)
 {
-    if(!event.empty())
-        _m[date].insert(event);
+    if(event.empty())
+        return;
+    static unsigned long uGlobalCounter = 0;
+    _m[date].insert(make_pair(event, uGlobalCounter++));
+    // fix me! the above doe not work for updating the existing event!
 }
 /** returns the # of entries removed */
 int Database::RemoveIf(std::function <bool(const Date& date, const string& event)> const &predicate)
@@ -14,7 +17,7 @@ int Database::RemoveIf(std::function <bool(const Date& date, const string& event
     {
         for(auto sit = mit->second.begin(); sit != mit->second.end(); ++sit)
         {
-            if(predicate(mit->first, *sit)) 
+            if(predicate(mit->first, sit->first)) 
             {
                 mit->second.erase(sit);
                 iRemoved++;
@@ -33,15 +36,25 @@ vector<string> Database::FindIf(std::function <bool (const Date& date, const str
     {
         for(auto sit = mit->second.begin(); sit != mit->second.end(); ++sit)
         {
-            if(predicate(mit->first, *sit)) 
+            if(predicate(mit->first, sit->first)) 
             {
                 stringstream os;
-                os << mit->first << " " << *sit;
+                os << mit->first << " " << sit->first;
                 res.push_back(os.str());
             }
         }
     }
     return res; 
+}
+
+static string getLastEvent(const set<pair<string,unsigned long>> &setOfPairs)
+{
+    pair<string,unsigned long>res;
+    res.second = 0;
+    for(auto p: setOfPairs)
+        if(p.second >= res.second)
+            res = p;
+    return res.first;
 }
 /** 
  * throws invalid_argument exception if there is nothing before date 
@@ -55,40 +68,14 @@ string Database::Last(const Date& date) const
         --it;
     if(date < it->first)
         throw invalid_argument("Nothing on or before that date");
-    string res("found it");
-    return res;
+    string event = getLastEvent(it->second);
+    stringstream os;
+    os << it->first << " " << event;
+    return os.str();
 }
-/*bool Database::DeleteEvent(const Date& date, const string& event)
-{
-    if(_m.count(date) == 0)
-        return false;
-    set<string> &strs = _m[date];
-    set<string>::iterator it = strs.find(event);
-    if(it == strs.end())
-        return false;
-    strs.erase(it);
-    return true;
-}*/
-/*int Database::DeleteDate(const Date& date)
-{
-    if(_m.count(date) == 0)
-        return 0;
-    int iRes = _m.at(date).size();
-    _m.erase(date);
-    return iRes;
-}*/
-/*void Database::Find(const Date& date) const
-{
-    auto it = _m.find(date);
-    if(it != _m.end())
-    {
-        for(auto evt: it->second)
-            cout << date << " " << evt << endl;
-    }
-}*/
 void Database::Print(std::ostream& os) const
 {
-  for(auto &elt: _m)
-    for(auto evt: elt.second)
-        os << elt.first << " " << evt << endl;
+  for(const auto &elt: _m)
+    for(const auto &evt: elt.second)
+        os << elt.first << " " << evt.first << endl;
 }
