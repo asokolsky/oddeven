@@ -16,18 +16,24 @@ void Database::Add(const Date& date, const string& event)
 int Database::RemoveIf(std::function <bool(const Date& date, const string& event)> const &predicate)
 {
     int iRemoved = 0;
-    for(auto mit = _m.begin(); mit != _m.end(); ++mit)
+    for(auto mit = _m.begin(); mit != _m.end(); )
     {
-        for(auto sit = mit->second.begin(); sit != mit->second.end(); ++sit)
+        for(auto sit = mit->second.begin(); sit != mit->second.end(); )
         {
             if(predicate(mit->first, sit->first)) 
             {
-                mit->second.erase(sit);
+				sit = mit->second.erase(sit);
                 iRemoved++;
             }
+			else
+			{
+				++sit;
+			}
         }
-        if(mit->second.empty())
-            _m.erase(mit);
+		if (mit->second.empty())
+			mit = _m.erase(mit);
+		else
+			++mit;
     }
     return iRemoved; 
 }
@@ -78,6 +84,8 @@ string Database::Last(const Date& date) const
     auto it = _m.lower_bound(date);
     if(it == _m.end())
         --it;
+	if((date < it->first) && (_m.begin() != it))
+		--it;
     if(date < it->first)
         throw invalid_argument("Nothing on or before that date");
     string event = getLastEvent(it->second);
@@ -221,7 +229,8 @@ void TestDbLast(){
     }
 }
 
-void TestDbRemoveIf () {
+void TestDbRemoveIf () 
+{
     {
         Database db;
         db.Add({2017, 1, 1}, "new year");
