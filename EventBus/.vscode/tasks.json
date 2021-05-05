@@ -1,0 +1,57 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "echoCommand": true,
+    "tasks": [
+        {
+            "label": "g++ debug build",
+            "command": "g++",
+            "type": "process",
+            "args": [
+                "-g",
+                "-std=c++11",
+                "${file}",
+                "-o",
+                "${workspaceRoot}/out/${fileBasenameNoExtension}.out",
+                "-lpthread"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        {
+            "label": "MSVC build",
+            "command": "cmd",
+            "type": "process",
+            "args": [
+                "/C %vcvarsall% && cl /Od /Zi /EHsc /Fd:%outpath%/${fileBasenameNoExtension}.pdb /Fo:%outpath%/%TargetName%.obj ${fileBasename} /link /OUT:%outpath%/%TargetName%.%TargetExt% /PDB:%outpath%/%TargetName%.pdb",
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ],
+    "options": {
+        "env": {
+            "outpath": "out", // must exist before running
+            "TargetName": "${fileBasenameNoExtension}",
+            "TargetExt": "exe",
+            "vcvarsall": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat\" x64"
+        }
+    }    
+}
