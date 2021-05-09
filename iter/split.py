@@ -20,10 +20,9 @@ def packA( elts: List[int]) -> Optional[ List[int]]:
 
     for l in range( 1, len(elts) + 1 ):
         # iterate over all the subsets of length l of the list elts
-        ress: List[ Tuple[ int ] ] = []
-        for c in  itertools.combinations( elts, l ):
-            if sum( c ) > targetWeight:
-                ress.append( c )
+        ress = list( filter(
+            lambda c: sum( c ) > targetWeight,
+            itertools.combinations( elts, l )))
         if not ress:
             continue
 
