@@ -19,9 +19,9 @@ If more than one subset A exists, return the one with the max total weight.
 
 ## Test 0
 
-arr = [3, 7, 5, 6, 2]
+[3, 7, 5, 6, 2]
 
-The 2 subsets in arr that satisfy the conditions for A are [5, 7] and [6, 7]:
+The 2 subsets that satisfy the conditions for A are [5, 7] and [6, 7]:
 
 * A is minimal (size 2)
 * Sum(A) = (5 + 7) = 12 > Sum(B) = (2 + 3 + 6) = 11
@@ -32,8 +32,7 @@ The 2 subsets in arr that satisfy the conditions for A are [5, 7] and [6, 7]:
 
 ## Test 1
 
-n = 6
-arr = [5, 3, 2, 4, 1, 2]
+[5, 3, 2, 4, 1, 2]
 
 The subset of A that satisfies the conditions is [4, 5] :
 
@@ -45,8 +44,7 @@ The subset of A that satisfies the conditions is [4, 5] :
  
 ## Test 2
 
-n = 5
-arr = [4, 2, 5, 1, 6]
+[4, 2, 5, 1, 6]
 
 The subset of A that satisfies the conditions is [5, 6]:
 
