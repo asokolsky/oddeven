@@ -12,17 +12,9 @@ def packA( elts: List[int]) -> Optional[ List[int]]:
 
     If all fails, return None
     '''
-    def totalWeight( elts: Union[List[int], Tuple[int]] ) -> Optional[int]:
-        return sum( elts )
-        #res = None
-        #for res in itertools.accumulate( elts ):
-        #    pass
-        #return res
-
-    #print( 'packA', elts )
     assert isinstance( elts, list )
 
-    w = totalWeight( elts )
+    w = sum( elts )
     targetWeight = w / 2
     #print( 'totalWeight:', w, 'targetWeight:', targetWeight )
 
@@ -30,16 +22,14 @@ def packA( elts: List[int]) -> Optional[ List[int]]:
         # iterate over all the subsets of length l of the list elts
         ress: List[ Tuple[ int ] ] = []
         for c in  itertools.combinations( elts, l ):
-            if totalWeight( c ) > targetWeight:
+            if sum( c ) > targetWeight:
                 ress.append( c )
         if not ress:
             continue
 
         # find the result with the biggest weight
         #print( 'ress:', ress )
-        res = max( ress, key=totalWeight )
-        #print( 'res:', res )
-        res = sorted( res )
+        res = sorted( max( ress, key=sum ) )
         print( 'packA', elts, '=>', res )
         return res
 
