@@ -1,16 +1,5 @@
 #/usr/bin/bash
 
-# sort the stop words and store these into temp directory
-#cat ./stopwords| tr -d '\r'| sort > /tmp/stop-words-sorted
-# tr -d '\r' removes invisible CR present in DOS text files
-
-#declare -A stop_words
-#stop_words=$(cat ./stopwords)
-#for stop_word in $stop_words ;
-#  do
-#    echo $stop_word
-#  done
-
 # tokenize the input, one token per line
 cat sample.txt| tr -d ',.;:!?"\r'| tr '[:space:]' '\n'|grep -v '^\s*$'|tr '[:upper:]' '[:lower:]'| sort | uniq -c| sort -bnr> /tmp/input-sorted-unique-counts
 # tr -d ',.;:!?"\r' - discard these chars
@@ -21,8 +10,7 @@ cat sample.txt| tr -d ',.;:!?"\r'| tr '[:space:]' '\n'|grep -v '^\s*$'|tr '[:upp
 # uniq -c - print count uniques
 # sort -bnr - sorts in numeric reverse order while ignoring whitespace
 
-
-k=3
+k=2
 
 # https://www.xmodulo.com/key-value-dictionary-bash.html
 declare -A occurences
