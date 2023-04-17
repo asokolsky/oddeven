@@ -18,7 +18,7 @@ cat sample.txt| tr -d ',.;:!?"\r'| tr '[:space:]' '\n'|grep -v '^\s*$'|tr '[:upp
 #      7 in
 #      6 weather
 
-k=4
+k=2
 
 # https://www.xmodulo.com/key-value-dictionary-bash.html
 declare -A occurences
@@ -56,7 +56,7 @@ done < /tmp/input-sorted-unique-counts
 # those with the same occurance
 words=()
 
-i=0 # running number of words printed
+i=0 # running number
 for word in "${!occurences[@]}"; do
     n=${occurences[$word]}
     #echo "== $word $n"
@@ -64,21 +64,29 @@ for word in "${!occurences[@]}"; do
         echo $word
         ((i++))
     else
-        echo "maybe $word"
+        #echo "maybe $word"
         words+=($word)
     fi
 done
 
-echo ${words[*]}
+printed=$i
 
 # https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash
+#echo ${words[*]}
 IFS=$'\n' words=($(sort <<<"${words[*]}"))
 unset IFS
+#echo ${words[*]}
 
-echo ${words[*]}
-
-for word in "${!words[@]}"; do
-    echo "== $word"
+for i in "${!words[@]}"; do
+    word=${words[$i]}
+    #echo "== ${word}"
+    #echo "printed=$printed k=$k"
+    if [[ "$printed" < "$k" ]] ; then
+        echo $word
+        ((printed++))
+    else
+        break
+    fi
 done
 
 # Known problem:
