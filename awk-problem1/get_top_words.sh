@@ -2,6 +2,8 @@
 
 # tokenize the input, one token per line
 cat sample.txt| tr -d ',.;:!?"\r'| tr '[:space:]' '\n'|grep -v '^\s*$'|tr '[:upper:]' '[:lower:]'| sort | uniq -c| sort -bnr> /tmp/input-sorted-unique-counts
+#tr "[:upper:]" "[:lower:]" < "$file_name" | grep -oE '\w+' | grep -vwFf stopwords | sort | uniq -c | sort -bnr > /tmp/input-sorted-unique-counts
+
 # tr -d ',.;:!?"\r' - discard these chars
 # tr '[:space:]' '\n' - replace these chars with \n
 # grep -v '^\s*$' - drop empty lines
@@ -88,9 +90,3 @@ for i in "${!words[@]}"; do
         break
     fi
 done
-
-# Known problem:
-#  1. words in with the same occurance are printed in the reverse sorted order
-#  2. Clarification needed:
-#       top 3 most used words - what to do if there are 4 words with the same
-#       occurance rate?
