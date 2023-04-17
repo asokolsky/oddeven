@@ -10,14 +10,23 @@ cat sample.txt| tr -d ',.;:!?"\r'| tr '[:space:]' '\n'|grep -v '^\s*$'|tr '[:upp
 # uniq -c - print count uniques
 # sort -bnr - sorts in numeric reverse order while ignoring whitespace
 
-k=2
+# /tmp/input-sorted-unique-counts looks like:
+#     17 the
+#      8 your
+#      8 you
+#      7 will
+#      7 in
+#      6 weather
+
+k=4
 
 # https://www.xmodulo.com/key-value-dictionary-bash.html
 declare -A occurences
 # Set space as the delimiter
 IFS=' '
 
-i=0
+i=0 # running number of words added
+n_prev=0 # occurances of the last word added
 while read line; do
     # Read the split words into an array based on space delimiter
     read -ra val_word <<< $line
@@ -30,19 +39,46 @@ while read line; do
         #echo "adding ${word}"
         occurences["${word}"]="${n}"
         ((i++))
-        if [[ "$i" == "$k" ]] ; then
+        #echo "i=${i} n_prev=${n_prev} n=${n} word=${word}"
+        if [[ "$n" == "$n_prev" ]] ; then
+            #echo "keep adding - we need the last with this occurance"
+            :
+        elif [[ "$i" > "$k" ]] ; then
+            #echo "bailing"
             break
         fi
+        n_prev="${n}"
     fi
-    #echo "i=${i}"
-
 done < /tmp/input-sorted-unique-counts
 
-#echo $occurences
+# by now $n_prev is lowest occurance we are interested in
 
-for key in "${!occurences[@]}"; do
-    #echo "== $key ${occurences[$key]}"
-    echo "$key"
+# those with the same occurance
+words=()
+
+i=0 # running number of words printed
+for word in "${!occurences[@]}"; do
+    n=${occurences[$word]}
+    #echo "== $word $n"
+    if [[ "$n" > "$n_prev" ]] ; then
+        echo $word
+        ((i++))
+    else
+        echo "maybe $word"
+        words+=($word)
+    fi
+done
+
+echo ${words[*]}
+
+# https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash
+IFS=$'\n' words=($(sort <<<"${words[*]}"))
+unset IFS
+
+echo ${words[*]}
+
+for word in "${!words[@]}"; do
+    echo "== $word"
 done
 
 # Known problem:
