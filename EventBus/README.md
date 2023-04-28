@@ -17,7 +17,7 @@ for the same ename may have different values for ehandler;
 handlers registered with EventBus::add( ename, ehandler );
 * EventBus extension:
 EventBus::invoke("AddAttachment", "path/to/attachment")
-argument is assummed to be const;
+argument is assumed to be const;
 
 ## HOWTO
 
@@ -39,9 +39,9 @@ This is still not a production code.  Missing:
 
 * Better understanding of the usage scenarios, e.g. is multithreading
 that important? Are calls to EventBus::add and EventBus::invoke
-overlapped?  Have a separate test for every scenario. Multiprocessing? 
+overlapped?  Have a separate test for every scenario. Multiprocessing?
 * Measure performance in events/sec;
-* Current EventBus sunchronization implementation is nothing but primitive.
+* Current EventBus synchronization implementation is nothing but primitive.
 No need to lock the entire bus when adding ehandler to the existing list.
 Each vector would have to have a separate mutex though.
 * More tests to cover event handler cancellation.
