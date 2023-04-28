@@ -14,34 +14,18 @@ EXE=./histogram
 # during comparison ignore trailing white space(s)
 CMP="diff --ignore-trailing-space -u"
 
-# compare expected output with actual
-${CMP} ./tests/test01.out.txt <(${EXE} < ./tests/test01.inp.txt)
-if [ $? -eq 0 ]; then
-  echo "OK"
-else
-  echo "Failed: $RETURN"
-fi
+for inp_file in ./tests/*.inp.txt; do
+  #echo "$inp_file"
+  out_file=`echo ${inp_file} | sed 's/inp/out/'`
+  #echo "$out_file"
 
-# compare expected output with actual
-${CMP} ./tests/test10.out.txt <(${EXE} < ./tests/test10.inp.txt)
-if [ $? -eq 0 ]; then
-  echo "OK"
-else
-  echo "Failed: $RETURN"
-fi
-
-# compare expected output with actual
-${CMP} ./tests/test11.out.txt <(${EXE} < ./tests/test11.inp.txt)
-if [ $? -eq 0 ]; then
-  echo "OK"
-else
-  echo "Failed: $RETURN"
-fi
-
-# compare expected output with actual
-${CMP} ./tests/test51.out.txt <(${EXE} < ./tests/test51.inp.txt)
-if [ $? -eq 0 ]; then
-  echo "OK"
-else
-  echo "Failed: $RETURN"
-fi
+  # compare expected output with actual
+  echo -n "Runninging: ${CMP} ${out_file} <(${EXE} < ${inp_file} ... "
+  ${CMP} "${out_file}" <(${EXE} < "${inp_file}")
+  ec=$?
+  if [ $ec -eq 0 ]; then
+    echo "OK"
+  else
+    echo "Failed: $ec"
+  fi
+done
